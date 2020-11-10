@@ -7,19 +7,20 @@
 #include "Time.h"
 
 using namespace std;
+setlocale(LC_ALL, "Russian");
 
-// ЗАКАЗ
+// Р—РђРљРђР—
 class Request
 {
 private:
-	int number; // номер заказа
-	string shop_name; // название магазина, для которого закупается товар
-	Time time; // время закупки
+	int number; // РЅРѕРјРµСЂ Р·Р°РєР°Р·Р°
+	string shop_name; // РЅР°Р·РІР°РЅРёРµ РјР°РіР°Р·РёРЅР°, РґР»СЏ РєРѕС‚РѕСЂРѕРіРѕ Р·Р°РєСѓРїР°РµС‚СЃСЏ С‚РѕРІР°СЂ
+	Time time; // РІСЂРµРјСЏ Р·Р°РєСѓРїРєРё
 public:
-	vector<Product> products; // список товаров в заказе
+	vector<Product> products; // СЃРїРёСЃРѕРє С‚РѕРІР°СЂРѕРІ РІ Р·Р°РєР°Р·Рµ
 
-	Request(int number, string shop_name, vector<Product> products, Time time); //конструктор
-	Request(); //конструктор
+	Request(int number, string shop_name, vector<Product> products, Time time); //РєРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ
+	Request(); //РєРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ
 
 	int getNumber();
 	void setNumber(int number);
@@ -33,8 +34,7 @@ public:
 	Time getTime();
 	void setTime(Time time);
 
-	void info_products(); // вывод списка товаров в заказе на консоль
-	void info_request(); // вывод заказа на консоль
-	void fixDemand(); // установка к-ва товаров в зависимости от спроса
+	void info_products(); // РІС‹РІРѕРґ СЃРїРёСЃРєР° С‚РѕРІР°СЂРѕРІ РІ Р·Р°РєР°Р·Рµ РЅР° РєРѕРЅСЃРѕР»СЊ
+	void info_request(); // РІС‹РІРѕРґ Р·Р°РєР°Р·Р° РЅР° РєРѕРЅСЃРѕР»СЊ
+	void fixDemand(); // СѓСЃС‚Р°РЅРѕРІРєР° Рє-РІР° С‚РѕРІР°СЂРѕРІ РІ Р·Р°РІРёСЃРёРјРѕСЃС‚Рё РѕС‚ СЃРїСЂРѕСЃР°
 };
-
