@@ -6,28 +6,30 @@
 
 using namespace std;
 
-// конструктор
+
+// РєРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ
 Customer::Customer(string name, string telephone, string login, string password, string email, string numcard, string message)
 {
-	this->name = name; // имя
-	this->telephone = telephone; // телефон
-	this->login = login; // логин
-	this->password = password; // пароль
-	this->email = email; // адрес эл. почты
-	this->numcard = numcard; // номер карты
-	this->message = message; // входящие сообщения
+	setlocale(0, "Rus");
+	this->name = name; // РёРјСЏ
+	this->telephone = telephone; // С‚РµР»РµС„РѕРЅ
+	this->login = login; // Р»РѕРіРёРЅ
+	this->password = password; // РїР°СЂРѕР»СЊ
+	this->email = email; // Р°РґСЂРµСЃ СЌР». РїРѕС‡С‚С‹
+	this->numcard = numcard; // РЅРѕРјРµСЂ РєР°СЂС‚С‹
+	this->message = message; // РІС…РѕРґСЏС‰РёРµ СЃРѕРѕР±С‰РµРЅРёСЏ
 }
 
-// конструктор по умолчанию
+// РєРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ РїРѕ СѓРјРѕР»С‡Р°РЅРёСЋ
 Customer::Customer()
 {
-	this->name = "ООО Товары Иванова";
+	this->name = "РћРћРћ РўРѕРІР°СЂС‹ РРІР°РЅРѕРІР°";
 	this->telephone = "8(800)200-90-02";
-	this->login = "admin5&8";
-	this->password = "27.10.2020";
-	this->email = "Talvitie@magnit.ru";
+	this->login = "a"; // admin5&8
+	this->password = "b"; // 27.10.2020
+	this->email = "h"; // Talvitie@magnit.ru
 	this->numcard = "4573 7800 0000 0156";
-	this->message = "";
+	this->message = "Р—РґРµСЃСЊ РїРѕРєР° РЅРµС‚ СЃРѕРѕР±С‰РµРЅРёР№";
 }
 
 string Customer::getName()

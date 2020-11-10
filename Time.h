@@ -1,34 +1,64 @@
-#pragma once
-
 #include <iostream>
 #include <list>
 #include <string>
+#include "Time.h"
 
-using namespace std;
-
-// ВРЕМЯ
-class Time
+// РєРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ
+Time::Time(int day, int hour, int minute, int second) 
 {
-private:
-	int day; // день закупки
-	int hour; // час
-	int minute; // минута
-	int second; // секунда
-public:
-	Time(int day, int hour, int minute, int second); // конструктор
-	Time(); // конструктор по умолчанию
+	this->day = day; // РґРµРЅСЊ Р·Р°РєСѓРїРєРё
+	this->hour = hour; // С‡Р°СЃ
+	this->minute = minute; // РјРёРЅСѓС‚Р°
+	this->second = second; // СЃРµРєСѓРЅРґР°
+}
 
-	int getDay();
-	void setDay(int day);
+//РєРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ РїРѕ СѓРјРѕР»С‡Р°РЅРёСЋ
+Time::Time() 
+{
+	this->day = 01;
+	this->hour = 10;
+	this->minute = 30;
+	this->second = 00;
+}
 
-	int getHour();
-	void setHour(int hour);
+int Time::getDay()
+{
+	return this->day;
+}
+void Time::setDay(int day)
+{
+	this->day = day;
+}
 
-	int getMinute();
-	void setMinute(int minute);
+int Time::getHour()
+{
+	return this->hour;
+}
+void Time::setHour(int hour)
+{
+	this->hour = hour;
+}
 
-	int getSecond();
-	void setSecond(int second);
+int Time::getMinute()
+{
+	return this->minute;
+}
+void Time::setMinute(int minute)
+{
+	this->minute = minute;
+}
 
-	friend ostream& operator << (std::ostream& out, const Time& Time); // перегрузка оператора, вывод времени
-};
+int Time::getSecond()
+{
+	return this->second;
+}
+void Time::setSecond(int second)
+{
+	this->second = second;
+}
+
+// РїРµСЂРµРіСЂСѓР·РєР° РѕРїРµСЂР°С‚РѕСЂР°, РІС‹РІРѕРґ РІСЂРµРјРµРЅРё
+ostream& operator << (std::ostream& out, const Time& Time)
+{
+	return out << Time.day << "." << Time.hour << "." << Time.minute << "." << Time.second;
+}

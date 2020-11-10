@@ -6,18 +6,18 @@
 
 using namespace std;
 
-// ТОВАР
+// РўРћР’РђР 
 class Product
 {
 private:
-	string product_name; // название товара
-	double price; // цена товара
-	int demand; // спрос на товар за текущий месяц
-	int last_demand; // спрос на товар за прошлый месяц
-	int count; // к-во товара
+	string product_name; // РЅР°Р·РІР°РЅРёРµ С‚РѕРІР°СЂР°
+	double price; // С†РµРЅР° С‚РѕРІР°СЂР°
+	int demand; // СЃРїСЂРѕСЃ РЅР° С‚РѕРІР°СЂ Р·Р° С‚РµРєСѓС‰РёР№ РјРµСЃСЏС†
+	int last_demand; // СЃРїСЂРѕСЃ РЅР° С‚РѕРІР°СЂ Р·Р° РїСЂРѕС€Р»С‹Р№ РјРµСЃСЏС†
+	int count; // Рє-РІРѕ С‚РѕРІР°СЂР°
 public:
-	Product(string product_name, double price, int demand, int last_demand, int count); //конструктор
-	Product(); //конструктор по умолчанию
+	Product(string product_name, double price, int demand, int last_demand, int count); //РєРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ
+	Product(); //РєРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ РїРѕ СѓРјРѕР»С‡Р°РЅРёСЋ
 
 	string getProduct_Name();
 	void setProduct_Name(string product_name);
@@ -34,6 +34,5 @@ public:
 	int getCount();
 	void setCount(int count);
 
-	friend ostream& operator << (std::ostream& out, const Product& Product); // перегрузка оператора, вывод информации о товаре
+	friend ostream& operator << (std::ostream& out, const Product& Product); // РїРµСЂРµРіСЂСѓР·РєР° РѕРїРµСЂР°С‚РѕСЂР°, РІС‹РІРѕРґ РёРЅС„РѕСЂРјР°С†РёРё Рѕ С‚РѕРІР°СЂРµ
 };
-

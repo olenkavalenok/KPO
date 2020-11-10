@@ -3,16 +3,16 @@
 #include <string>
 #include "Time.h"
 
-// конструктор
+// РєРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ
 Time::Time(int day, int hour, int minute, int second) 
 {
-	this->day = day; // день закупки
-	this->hour = hour; // час
-	this->minute = minute; // минута
-	this->second = second; // секунда
+	this->day = day; // РґРµРЅСЊ Р·Р°РєСѓРїРєРё
+	this->hour = hour; // С‡Р°СЃ
+	this->minute = minute; // РјРёРЅСѓС‚Р°
+	this->second = second; // СЃРµРєСѓРЅРґР°
 }
 
-//конструктор по умолчанию
+//РєРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ РїРѕ СѓРјРѕР»С‡Р°РЅРёСЋ
 Time::Time() 
 {
 	this->day = 01;
@@ -57,7 +57,7 @@ void Time::setSecond(int second)
 	this->second = second;
 }
 
-// перегрузка оператора, вывод времени
+// РїРµСЂРµРіСЂСѓР·РєР° РѕРїРµСЂР°С‚РѕСЂР°, РІС‹РІРѕРґ РІСЂРµРјРµРЅРё
 ostream& operator << (std::ostream& out, const Time& Time)
 {
 	return out << Time.day << "." << Time.hour << "." << Time.minute << "." << Time.second;

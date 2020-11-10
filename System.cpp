@@ -7,14 +7,17 @@
 #include <iomanip>
 #include <cstring>
 #include <sstream>
+#include "windows.h"
+#include <conio.h>
 
 using namespace std;
 
-// СИСТЕМА
+// РЎРРЎРўР•РњРђ
 
-// МЕНЮ "ЗАКАЗ"
+// РњР•РќР® "Р—РђРљРђР—"
 void menu_request(Request* request, Provider* provider)
 {
+	system("cls");
 	int a;
 	int j;
 	bool flag = true;
@@ -23,171 +26,222 @@ void menu_request(Request* request, Provider* provider)
 	bool aExit = false;
 	while (!aExit)
 	{
-		cout << "\n" << setw(40) << "Изменить список товаров" << setw(35) << "Изменить время закупки.....4" << endl;
-		cout << setw(40) << "Удалить товар.......................1" << endl;
-		cout << setw(40) << "Добавить товар......................2" << endl;
-		cout << setw(40) << "Изменить количество товара..........3" << setw(35) << "Назад......................0" << endl << endl;
+		cout << "\n" << setw(40) << "РР·РјРµРЅРёС‚СЊ СЃРїРёСЃРѕРє С‚РѕРІР°СЂРѕРІ" << setw(35) << "РР·РјРµРЅРёС‚СЊ РІСЂРµРјСЏ Р·Р°РєСѓРїРєРё.....4" << endl;
+		cout << setw(40) << "РЈРґР°Р»РёС‚СЊ С‚РѕРІР°СЂ.......................1" << endl;
+		cout << setw(40) << "Р”РѕР±Р°РІРёС‚СЊ С‚РѕРІР°СЂ......................2" << endl;
+		cout << setw(40) << "РР·РјРµРЅРёС‚СЊ РєРѕР»РёС‡РµСЃС‚РІРѕ С‚РѕРІР°СЂР°..........3" << setw(35) << "РќР°Р·Р°Рґ......................0" << endl << endl;
 		do {
-			cout << "Введите номер функции: ";
+			cout << "Р’РІРµРґРёС‚Рµ РЅРѕРјРµСЂ С„СѓРЅРєС†РёРё: ";
 			cin >> a;
 		} while ((a < 0) || (a > 4));
 		switch (a)
 		{
-		// УДАЛИТЬ ТОВАР
+			// РЈР”РђР›РРўР¬ РўРћР’РђР 
 		case 1:
-			request->info_products(); // вывод товаров в заказе
+			system("cls");
+			cout << endl;
+			request->info_products(); // РІС‹РІРѕРґ С‚РѕРІР°СЂРѕРІ РІ Р·Р°РєР°Р·Рµ
 			int i;
-			cout << "Введите номер товара: ";
-			cin >> i;
-			request->products.erase(request->products.begin() + i); // удаление товара под номером i
+			do {
+				cout << "Р’РІРµРґРёС‚Рµ РЅРѕРјРµСЂ С‚РѕРІР°СЂР°: ";
+				cin >> i;
+			} while ((i < 0) || (i > request->products.size()-1));
+			request->products.erase(request->products.begin() + i); // СѓРґР°Р»РµРЅРёРµ С‚РѕРІР°СЂР° РїРѕРґ РЅРѕРјРµСЂРѕРј i
 			break;
-		// ДОБАВИТЬ ТОВАР
+			// Р”РћР‘РђР’РРўР¬ РўРћР’РђР 
 		case 2:
-			provider->info_products_provider(); // вывод списка товаров, которые есть у поставщика
-			cout << "Введите номер товара: ";
-			cin >> i;
+			system("cls");
+			cout << endl;
+			provider->info_products_provider(); // РІС‹РІРѕРґ СЃРїРёСЃРєР° С‚РѕРІР°СЂРѕРІ, РєРѕС‚РѕСЂС‹Рµ РµСЃС‚СЊ Сѓ РїРѕСЃС‚Р°РІС‰РёРєР°
+			do {
+				cout << "Р’РІРµРґРёС‚Рµ РЅРѕРјРµСЂ С‚РѕРІР°СЂР°: ";
+				cin >> i;
+			} while ((i < 0) || (i > provider->products_provider.size() - 1));
 			for (j = 0; j < request->products.size(); j++)
-				if (request->products[j].getProduct_Name() == provider->getProductProvider()[i].getProduct_Name()) // проверяем, есть ли выбранный товар в заказе
+				if (request->products[j].getProduct_Name() == provider->getProductProvider()[i].getProduct_Name()) // РїСЂРѕРІРµСЂСЏРµРј, РµСЃС‚СЊ Р»Рё РІС‹Р±СЂР°РЅРЅС‹Р№ С‚РѕРІР°СЂ РІ Р·Р°РєР°Р·Рµ
 					flag = false;
 			if (flag == true)
-				request->products.emplace_back(provider->getProductProvider()[i]); // добавление в заказ товара под номером i, если его до этого не было
+				request->products.emplace_back(provider->getProductProvider()[i]); // РґРѕР±Р°РІР»РµРЅРёРµ РІ Р·Р°РєР°Р· С‚РѕРІР°СЂР° РїРѕРґ РЅРѕРјРµСЂРѕРј i, РµСЃР»Рё РµРіРѕ РґРѕ СЌС‚РѕРіРѕ РЅРµ Р±С‹Р»Рѕ
 			else
-				cout << "Товар уже добавлен" << endl;
+				cout << "\n" << "РўРѕРІР°СЂ СѓР¶Рµ РґРѕР±Р°РІР»РµРЅ" << endl;
 			break;
-		// ИЗМЕНИТЬ К-ВО ТОВАРА
+			// РР—РњР•РќРРўР¬ Рљ-Р’Рћ РўРћР’РђР Рђ
 		case 3:
-			request->info_products(); // вывод товаров в заказе 
-			cout << "Введите номер продукта: ";
-			cin >> i;
-			cout << "Введите количество: ";
+			system("cls");
+			cout << endl;
+			request->info_products(); // РІС‹РІРѕРґ С‚РѕРІР°СЂРѕРІ РІ Р·Р°РєР°Р·Рµ 
+			do {
+				cout << "Р’РІРµРґРёС‚Рµ РЅРѕРјРµСЂ С‚РѕРІР°СЂР°: ";
+				cin >> i;
+			} while ((i < 0) || (i > request->products.size() - 1));
+			cout << "Р’РІРµРґРёС‚Рµ РєРѕР»РёС‡РµСЃС‚РІРѕ: ";
 			cin >> input_count;
-			request->products[i].setCount(input_count); // изменяем к-во товара под номером i
+			request->products[i].setCount(input_count); // РёР·РјРµРЅСЏРµРј Рє-РІРѕ С‚РѕРІР°СЂР° РїРѕРґ РЅРѕРјРµСЂРѕРј i
 			break;
-		// ИЗМЕНИТЬ ВРЕМЯ ЗАКУПКИ
+			// РР—РњР•РќРРўР¬ Р’Р Р•РњРЇ Р—РђРљРЈРџРљР
 		case 4:
-			int new_day, new_hour, new_minute, new_second; // новые параметры времени
-			cout << "Введите время: ";
-			cin >> new_day;
-			cin >> new_hour;
-			cin >> new_minute;
-			cin >> new_second;
-			// устанавливаем значения параметров
+			system("cls");
+			cout << endl;
+			int new_day, new_hour, new_minute, new_second; // РЅРѕРІС‹Рµ РїР°СЂР°РјРµС‚СЂС‹ РІСЂРµРјРµРЅРё
+			cout << "Р’РІРµРґРёС‚Рµ РІСЂРµРјСЏ" << endl;
+			do {
+				cout << "Р”РµРЅСЊ: ";
+				cin >> new_day;
+			} while ((new_day < 1) || (new_day > 28));
+			do {
+				cout << "Р§Р°СЃ: ";
+				cin >> new_hour;
+			} while ((new_hour < 0) || (new_hour > 23));
+			do {
+				cout << "РњРёРЅСѓС‚Р°: ";
+				cin >> new_minute;
+			} while ((new_minute < 0) || (new_minute > 59));
+			do {
+				cout << "РЎРµРєСѓРЅРґР°: ";
+				cin >> new_second;
+			} while ((new_second < 0) || (new_second > 59));
+			// СѓСЃС‚Р°РЅР°РІР»РёРІР°РµРј Р·РЅР°С‡РµРЅРёСЏ РїР°СЂР°РјРµС‚СЂРѕРІ
 			new_time.setDay(new_day);
 			new_time.setHour(new_hour);
 			new_time.setMinute(new_minute);
 			new_time.setSecond(new_second);
-			request->setTime(new_time); // устанавливаем новое время
+			request->setTime(new_time); // СѓСЃС‚Р°РЅР°РІР»РёРІР°РµРј РЅРѕРІРѕРµ РІСЂРµРјСЏ
 			break;
-		// ВЫХОД ИЗ МЕНЮ
+			// Р’Р«РҐРћР” РР— РњР•РќР®
 		case 0:
 			aExit = true;
+			system("cls");
 			break;
 		}
 	}
 }
 
-// МЕНЮ ЗАКАЗЧИКА
+// РњР•РќР® Р—РђРљРђР—Р§РРљРђ
 void menu_customer(Customer* customer, Request* request, Provider* provider)
 {
+	system("cls");
+	SetConsoleCP(1251);
+	SetConsoleOutputCP(1251);
 	int a;
 	bool aExit = false;
-	string new_name; // новое имя
-	string new_login; // новый логин
-	string new_password; // новый пароль
-	string new_telephone; // новый телефон
-	string new_email; // новый адрес эл. почты
-	string new_numcard; // новый номер карты
+	string new_name; // РЅРѕРІРѕРµ РёРјСЏ
+	string new_login; // РЅРѕРІС‹Р№ Р»РѕРіРёРЅ
+	string new_password; // РЅРѕРІС‹Р№ РїР°СЂРѕР»СЊ
+	string new_telephone; // РЅРѕРІС‹Р№ С‚РµР»РµС„РѕРЅ
+	string new_email; // РЅРѕРІС‹Р№ Р°РґСЂРµСЃ СЌР». РїРѕС‡С‚С‹
+	string new_numcard; // РЅРѕРІС‹Р№ РЅРѕРјРµСЂ РєР°СЂС‚С‹
 	string input_message;
 	string input_email;
 
-	// генерирует номер заказа
+	// РіРµРЅРµСЂРёСЂСѓРµС‚ РЅРѕРјРµСЂ Р·Р°РєР°Р·Р°
 	setlocale(0, "");
 	int random;
 	srand(time(NULL));
 	random = 0 + rand() % +100;
-	(*request).setNumber(random); // устанавливаем номер заказа
+	(*request).setNumber(random); // СѓСЃС‚Р°РЅР°РІР»РёРІР°РµРј РЅРѕРјРµСЂ Р·Р°РєР°Р·Р°
 
-	request->fixDemand(); // устанавливаем к-во товаров в зависимости от спроса
+	request->fixDemand(); // СѓСЃС‚Р°РЅР°РІР»РёРІР°РµРј Рє-РІРѕ С‚РѕРІР°СЂРѕРІ РІ Р·Р°РІРёСЃРёРјРѕСЃС‚Рё РѕС‚ СЃРїСЂРѕСЃР°
 	while (!aExit)
 	{
-		cout << "\n" << setw(40) << "Изменить данные" << setw(30) << "Заказ" << endl;
+		cout << "\n" << setw(40) << "РР·РјРµРЅРёС‚СЊ РґР°РЅРЅС‹Рµ" << setw(30) << "Р—Р°РєР°Р·" << endl;
 
-		cout << setw(40) << "Изменить имя........................1" << setw(30) << "Посмотреть заказ......7" << setw(30) << "Входящие сообщения...10" << endl;
-		cout << setw(40) << "Изменить логин......................2" << setw(30) << "Изменить заказ........8" << setw(30) << "Отправить сообщение..11" << endl;
-		cout << setw(40) << "Изменить пароль.....................3" << setw(30) << "Отправить заказ.......9" << endl;
-		cout << setw(40) << "Изменить телефон....................4" << endl;
-		cout << setw(40) << "Изменение адреса эл. почты..........5" << endl;
-		cout << setw(40) << "Изменение реквизитов зачисления.....6" << setw(60) << "Выход.................0" << endl << endl;
+		cout << setw(40) << "РР·РјРµРЅРёС‚СЊ РёРјСЏ........................1" << setw(30) << "РџРѕСЃРјРѕС‚СЂРµС‚СЊ Р·Р°РєР°Р·......7" << setw(30) << "Р’С…РѕРґСЏС‰РёРµ СЃРѕРѕР±С‰РµРЅРёСЏ...10" << endl;
+		cout << setw(40) << "РР·РјРµРЅРёС‚СЊ Р»РѕРіРёРЅ......................2" << setw(30) << "РР·РјРµРЅРёС‚СЊ Р·Р°РєР°Р·........8" << setw(30) << "РћС‚РїСЂР°РІРёС‚СЊ СЃРѕРѕР±С‰РµРЅРёРµ..11" << endl;
+		cout << setw(40) << "РР·РјРµРЅРёС‚СЊ РїР°СЂРѕР»СЊ.....................3" << setw(30) << "РћС‚РїСЂР°РІРёС‚СЊ Р·Р°РєР°Р·.......9" << endl;
+		cout << setw(40) << "РР·РјРµРЅРёС‚СЊ С‚РµР»РµС„РѕРЅ....................4" << endl;
+		cout << setw(40) << "РР·РјРµРЅРµРЅРёРµ Р°РґСЂРµСЃР° СЌР». РїРѕС‡С‚С‹..........5" << endl;
+		cout << setw(40) << "РР·РјРµРЅРµРЅРёРµ СЂРµРєРІРёР·РёС‚РѕРІ Р·Р°С‡РёСЃР»РµРЅРёСЏ.....6" << setw(60) << "Р’С‹С…РѕРґ.................0" << endl << endl;
 
 		do {
-			cout << "Введите номер функции: ";
+			cout << "Р’РІРµРґРёС‚Рµ РЅРѕРјРµСЂ С„СѓРЅРєС†РёРё: ";
 			cin >> a;
 		} while ((a < 0) || (a > 11));
 		switch (a)
 		{
-		// ИЗМЕНИТЬ ИМЯ
+			// РР—РњР•РќРРўР¬ РРњРЇ
 		case 1:
-			cout << "Введите новое имя: ";
+			system("cls");
+			cout << endl;
+			cout << "Р’РІРµРґРёС‚Рµ РЅРѕРІРѕРµ РёРјСЏ: ";
 			cin >> new_name;
 			customer->setName(new_name);
 			break;
-		// ИЗМЕНИТЬ ЛОГИН
+			// РР—РњР•РќРРўР¬ Р›РћР“РРќ
 		case 2:
-			cout << "Введите новый логин: ";
+			system("cls");
+			cout << endl;
+			cout << "Р’РІРµРґРёС‚Рµ РЅРѕРІС‹Р№ Р»РѕРіРёРЅ: ";
 			cin >> new_login;
 			customer->setLogin(new_login);
 			break;
-		// ИЗМЕНИТЬ ПАРОЛЬ
+			// РР—РњР•РќРРўР¬ РџРђР РћР›Р¬
 		case 3:
-			cout << "Введите новый пароль: ";
+			system("cls");
+			cout << endl;
+			cout << "Р’РІРµРґРёС‚Рµ РЅРѕРІС‹Р№ РїР°СЂРѕР»СЊ: ";
 			cin >> new_password;
 			customer->setPassword(new_password);
 			break;
-		// ИЗМЕНИТЬ ТЕЛЕФОН
+			// РР—РњР•РќРРўР¬ РўР•Р›Р•Р¤РћРќ
 		case 4:
-			cout << "Введите новый телефон: ";
+			system("cls");
+			cout << endl;
+			cout << "Р’РІРµРґРёС‚Рµ РЅРѕРІС‹Р№ С‚РµР»РµС„РѕРЅ: ";
 			cin >> new_telephone;
 			customer->setTelephone(new_telephone);
 			break;
-		// ИЗМЕНИТЬ АДРЕС ЭЛ. ПОЧТЫ
+			// РР—РњР•РќРРўР¬ РђР”Р Р•РЎ Р­Р›. РџРћР§РўР«
 		case 5:
-			cout << "Введите новый адрес эл. почты: ";
+			system("cls");
+			cout << endl;
+			cout << "Р’РІРµРґРёС‚Рµ РЅРѕРІС‹Р№ Р°РґСЂРµСЃ СЌР». РїРѕС‡С‚С‹: ";
 			cin >> new_email;
 			customer->setEmail(new_email);
 			break;
-		// ИЗМЕНИТЬ НОМЕР КАРТЫ
+			// РР—РњР•РќРРўР¬ РќРћРњР•Р  РљРђР РўР«
 		case 6:
-			cout << "Введите новый номер карты: ";
+			system("cls");
+			cout << endl;
+			cout << "Р’РІРµРґРёС‚Рµ РЅРѕРІС‹Р№ РЅРѕРјРµСЂ РєР°СЂС‚С‹: ";
 			cin >> new_numcard;
 			customer->setNumcard(new_numcard);
 			break;
-		// ПОСМОТРЕТЬ ЗАКАЗ
+			// РџРћРЎРњРћРўР Р•РўР¬ Р—РђРљРђР—
 		case 7:
+			system("cls");
+			cout << endl;
 			request->info_request();
 			break;
-		// ИЗМЕНИТЬ ЗАКАЗ
+			// РР—РњР•РќРРўР¬ Р—РђРљРђР—
 		case 8:
-			menu_request(&(*request), &(*provider)); // в меню "ЗАКАЗ"
+			menu_request(&(*request), &(*provider)); // РІ РјРµРЅСЋ "Р—РђРљРђР—"
 			break;
-		// ОТПРАВИТЬ ЗАКАЗ
+			// РћРўРџР РђР’РРўР¬ Р—РђРљРђР—
 		case 9:
-			provider->setIncomingRequest(*request); // добавляет заказ во "Входящие заказы" поставщика
+			system("cls");
+			cout << endl;
+			provider->setIncomingRequest(*request); // РґРѕР±Р°РІР»СЏРµС‚ Р·Р°РєР°Р· РІРѕ "Р’С…РѕРґСЏС‰РёРµ Р·Р°РєР°Р·С‹" РїРѕСЃС‚Р°РІС‰РёРєР°
 			break;
-		// ПОСМОТРЕТЬ ВХОДЯЩИЕ СООБЩЕНИЯ
+			// РџРћРЎРњРћРўР Р•РўР¬ Р’РҐРћР”РЇР©РР• РЎРћРћР‘Р©Р•РќРРЇ
 		case 10:
+			system("cls");
+			cout << endl;
 			cout << customer->getMessage();
 			break;
-		// ОТПРАВИТЬ СООБЩЕНИЕ
+			// РћРўРџР РђР’РРўР¬ РЎРћРћР‘Р©Р•РќРР•
 		case 11:
+			system("cls");
+			cout << endl;
 			do {
-				cout << "Введите адрес почты: ";
+				cout << "Р’РІРµРґРёС‚Рµ Р°РґСЂРµСЃ РїРѕС‡С‚С‹: ";
 				cin >> input_email;
-			} while (provider->getEmail() != input_email); // проверка правильности введённых данных
-			cout << "Введите сообщение" << endl;
-			cin >> input_message; // сообщение
-			provider->setMessage(input_message); // добавляем сообщение во "Входящие сообщения" поставщика
+			} while (provider->getEmail() != input_email); // РїСЂРѕРІРµСЂРєР° РїСЂР°РІРёР»СЊРЅРѕСЃС‚Рё РІРІРµРґС‘РЅРЅС‹С… РґР°РЅРЅС‹С…
+			cout << "Р’РІРµРґРёС‚Рµ СЃРѕРѕР±С‰РµРЅРёРµ" << endl;
+			cin.get();
+			getline(cin, input_message); // СЃРѕРѕР±С‰РµРЅРёРµ
+			provider->setMessage(input_message); // РґРѕР±Р°РІР»СЏРµРј СЃРѕРѕР±С‰РµРЅРёРµ РІРѕ "Р’С…РѕРґСЏС‰РёРµ СЃРѕРѕР±С‰РµРЅРёСЏ" РїРѕСЃС‚Р°РІС‰РёРєР°
 			break;
-		// ВЫХОД ИЗ МЕНЮ
+			// Р’Р«РҐРћР” РР— РњР•РќР®
 		case 0:
 			aExit = true;
 			break;
@@ -195,135 +249,164 @@ void menu_customer(Customer* customer, Request* request, Provider* provider)
 	}
 }
 
-// МЕНЮ ПОСТАВЩИКА
+// РњР•РќР® РџРћРЎРўРђР’Р©РРљРђ
 void menu_provider(Provider* provider, Customer* customer, Request* request)
-{
+{	
+	system("cls");
 	int c;
 	int i, j;
 	bool cExit = false;
-	double new_price; // новая цена
-	string new_name; // новое имя
-	string new_login; // новый логин
-	string new_password; // новый пароль
-	string new_telephone; // новый телефон
-	string new_email; // новый адрес эл. почты
-	string new_numcard; // новый номер карты
+	double new_price; // РЅРѕРІР°СЏ С†РµРЅР°
+	string new_name; // РЅРѕРІРѕРµ РёРјСЏ
+	string new_login; // РЅРѕРІС‹Р№ Р»РѕРіРёРЅ
+	string new_password; // РЅРѕРІС‹Р№ РїР°СЂРѕР»СЊ
+	string new_telephone; // РЅРѕРІС‹Р№ С‚РµР»РµС„РѕРЅ
+	string new_email; // РЅРѕРІС‹Р№ Р°РґСЂРµСЃ СЌР». РїРѕС‡С‚С‹
+	string new_numcard; // РЅРѕРІС‹Р№ РЅРѕРјРµСЂ РєР°СЂС‚С‹
 	string input_email;
 	string name_i;
 	string s;
 	ostringstream ost;
 
-	string new_product_name; // название нового товара
-	double new_product_price; // цена нового товара
-	int new_product_count; // количество нового товара
+	string new_product_name; // РЅР°Р·РІР°РЅРёРµ РЅРѕРІРѕРіРѕ С‚РѕРІР°СЂР°
+	double new_product_price; // С†РµРЅР° РЅРѕРІРѕРіРѕ С‚РѕРІР°СЂР°
+	int new_product_count; // РєРѕР»РёС‡РµСЃС‚РІРѕ РЅРѕРІРѕРіРѕ С‚РѕРІР°СЂР°
 	Product new_product;
 
 	while (!cExit)
 	{
-		cout << "\n" << setw(40) << "Изменить данные" << setw(35) << "Заказ" << setw(25) << "Продукты" << endl;
+		cout << "\n" << setw(40) << "РР·РјРµРЅРёС‚СЊ РґР°РЅРЅС‹Рµ" << setw(35) << "Р—Р°РєР°Р·" << setw(25) << "РўРѕРІР°СЂС‹" << endl;
 
-		cout << setw(40) << "Изменить имя........................1" << setw(35) << "Входящий заказ................7" << setw(25) << "Добавить продукт....10" << endl;
-		cout << setw(40) << "Изменить логин......................2" << setw(35) << "Письмо о подтверждении........8" << setw(25) << "Удалить продукт.....11" << endl;
-		cout << setw(40) << "Изменить пароль.....................3" << setw(60) <<                                                  "Изменить цену.......12" << endl;
-		cout << setw(40) << "Изменить телефон....................4" << endl;
-		cout << setw(40) << "Изменение адреса эл. почты..........5" << endl;
-		cout << setw(40) << "Изменение реквизитов зачисления.....6" << setw(35) << "Входящие сообщения............9" << setw(25) << "Выход................0" << endl << endl;
+		cout << setw(40) << "РР·РјРµРЅРёС‚СЊ РёРјСЏ........................1" << setw(35) << "Р’С…РѕРґСЏС‰РёР№ Р·Р°РєР°Р·................7" << setw(25) << "Р”РѕР±Р°РІРёС‚СЊ РїСЂРѕРґСѓРєС‚....10" << endl;
+		cout << setw(40) << "РР·РјРµРЅРёС‚СЊ Р»РѕРіРёРЅ......................2" << setw(35) << "РџРёСЃСЊРјРѕ Рѕ РїРѕРґС‚РІРµСЂР¶РґРµРЅРёРё........8" << setw(25) << "РЈРґР°Р»РёС‚СЊ РїСЂРѕРґСѓРєС‚.....11" << endl;
+		cout << setw(40) << "РР·РјРµРЅРёС‚СЊ РїР°СЂРѕР»СЊ.....................3" << setw(60) << "РР·РјРµРЅРёС‚СЊ С†РµРЅСѓ.......12" << endl;
+		cout << setw(40) << "РР·РјРµРЅРёС‚СЊ С‚РµР»РµС„РѕРЅ....................4" << endl;
+		cout << setw(40) << "РР·РјРµРЅРµРЅРёРµ Р°РґСЂРµСЃР° СЌР». РїРѕС‡С‚С‹..........5" << endl;
+		cout << setw(40) << "РР·РјРµРЅРµРЅРёРµ СЂРµРєРІРёР·РёС‚РѕРІ Р·Р°С‡РёСЃР»РµРЅРёСЏ.....6" << setw(35) << "Р’С…РѕРґСЏС‰РёРµ СЃРѕРѕР±С‰РµРЅРёСЏ............9" << setw(25) << "Р’С‹С…РѕРґ................0" << endl << endl;
 		do
 		{
-			cout << "Введите номер функции: ";
+			cout << "Р’РІРµРґРёС‚Рµ РЅРѕРјРµСЂ С„СѓРЅРєС†РёРё: ";
 			cin >> c;
 		} while (c < 0 || c > 12);
 		switch (c)
 		{
-		// ИЗМЕНИТЬ ИМЯ
+			// РР—РњР•РќРРўР¬ РРњРЇ
 		case 1:
-			cout << "Введите новое имя: ";
+			system("cls");
+			cout << endl;
+			cout << "Р’РІРµРґРёС‚Рµ РЅРѕРІРѕРµ РёРјСЏ: ";
 			cin >> new_name;
 			provider->setName(new_name);
 			break;
-		// ИЗМЕНИТЬ ЛОГИН
+			// РР—РњР•РќРРўР¬ Р›РћР“РРќ
 		case 2:
-			cout << "Введите новый логин: ";
+			system("cls");
+			cout << endl;
+			cout << "Р’РІРµРґРёС‚Рµ РЅРѕРІС‹Р№ Р»РѕРіРёРЅ: ";
 			cin >> new_login;
 			provider->setLogin(new_login);
 			break;
-		// ИЗМЕНИТЬ ПАРОЛЬ
+			// РР—РњР•РќРРўР¬ РџРђР РћР›Р¬
 		case 3:
-			cout << "Введите новый пароль: ";
+			system("cls");
+			cout << endl;
+			cout << "Р’РІРµРґРёС‚Рµ РЅРѕРІС‹Р№ РїР°СЂРѕР»СЊ: ";
 			cin >> new_password;
 			provider->setPassword(new_password);
 			break;
-		// ИЗМЕНИТЬ ТЕЛЕФОН
+			// РР—РњР•РќРРўР¬ РўР•Р›Р•Р¤РћРќ
 		case 4:
-			cout << "Введите новый телефон: ";
+			system("cls");
+			cout << endl;
+			cout << "Р’РІРµРґРёС‚Рµ РЅРѕРІС‹Р№ С‚РµР»РµС„РѕРЅ: ";
 			cin >> new_telephone;
 			provider->setTelephone(new_telephone);
 			break;
-		// ИЗМЕНИТЬ АДРЕС ЭЛ. ПОЧТЫ
+			// РР—РњР•РќРРўР¬ РђР”Р Р•РЎ Р­Р›. РџРћР§РўР«
 		case 5:
-			cout << "Введите новый адрес эл. почты: ";
+			system("cls");
+			cout << endl;
+			cout << "Р’РІРµРґРёС‚Рµ РЅРѕРІС‹Р№ Р°РґСЂРµСЃ СЌР». РїРѕС‡С‚С‹: ";
 			cin >> new_email;
 			provider->setEmail(new_email);
 			break;
-		// ИЗМЕНИТЬ НОМЕР КАРТЫ
+			// РР—РњР•РќРРўР¬ РќРћРњР•Р  РљРђР РўР«
 		case 6:
-			cout << "Введите новый номер карты: ";
+			system("cls");
+			cout << endl;
+			cout << "Р’РІРµРґРёС‚Рµ РЅРѕРІС‹Р№ РЅРѕРјРµСЂ РєР°СЂС‚С‹: ";
 			cin >> new_numcard;
 			provider->setNumcard(new_numcard);
 			break;
-		// ПОСМОТРЕТЬ ВХОДЯЩИЙ ЗАКАЗ
+			// РџРћРЎРњРћРўР Р•РўР¬ Р’РҐРћР”РЇР©РР™ Р—РђРљРђР—
 		case 7:
+			system("cls");
+			cout << endl;
 			provider->getIncomingRequest().info_request();
 			break;
-		// ОТПРАВКА ПОДТВЕРЖДЕНИЯ
+			// РћРўРџР РђР’РљРђ РџРћР”РўР’Р•Р Р–Р”Р•РќРРЇ
 		case 8:
+			system("cls");
+			cout << endl;
 			do {
-				cout << "Введите адрес почты: ";
+				cout << "Р’РІРµРґРёС‚Рµ Р°РґСЂРµСЃ РїРѕС‡С‚С‹: ";
 				cin >> input_email;
-			} while (customer->getEmail() != input_email); // проверка правильности введённых данных
-			ost << request->getNumber(); // номер заказа
-			s = "Заказ № " + ost.str() + " получен"; // сообщение
-			customer->setMessage(s); // добавляем сообщение во "Входящие сообщения" заказчика
+			} while (customer->getEmail() != input_email); // РїСЂРѕРІРµСЂРєР° РїСЂР°РІРёР»СЊРЅРѕСЃС‚Рё РІРІРµРґС‘РЅРЅС‹С… РґР°РЅРЅС‹С…
+			ost << request->getNumber(); // РЅРѕРјРµСЂ Р·Р°РєР°Р·Р°
+			s = "Р—Р°РєР°Р· в„– " + ost.str() + " РїРѕР»СѓС‡РµРЅ"; // СЃРѕРѕР±С‰РµРЅРёРµ
+			customer->setMessage(s); // РґРѕР±Р°РІР»СЏРµРј СЃРѕРѕР±С‰РµРЅРёРµ РІРѕ "Р’С…РѕРґСЏС‰РёРµ СЃРѕРѕР±С‰РµРЅРёСЏ" Р·Р°РєР°Р·С‡РёРєР°
 			break;
-		// ПОСМОТРЕТЬ ВХОДЯЩИЕ СООБЩЕНИЯ
+			// РџРћРЎРњРћРўР Р•РўР¬ Р’РҐРћР”РЇР©РР• РЎРћРћР‘Р©Р•РќРРЇ
 		case 9:
+			system("cls");
+			cout << endl;
 			cout << provider->getMessage();
 			break;
-		// ДОБАВИТЬ ТОВАР
+			// Р”РћР‘РђР’РРўР¬ РўРћР’РђР 
 		case 10:
-			provider->info_products_provider(); // вывод имеющихся товаров
-			cout << "Введите название продукта: ";
+			system("cls");
+			cout << endl;
+			provider->info_products_provider(); // РІС‹РІРѕРґ РёРјРµСЋС‰РёС…СЃСЏ С‚РѕРІР°СЂРѕРІ
+			cout << "Р’РІРµРґРёС‚Рµ РЅР°Р·РІР°РЅРёРµ РїСЂРѕРґСѓРєС‚Р°: ";
 			cin >> new_product_name;
-			cout << "Введите название цену: ";
+			cout << "Р’РІРµРґРёС‚Рµ РЅР°Р·РІР°РЅРёРµ С†РµРЅСѓ: ";
 			cin >> new_product_price;
-			cout << "Введите количество: ";
+			cout << "Р’РІРµРґРёС‚Рµ РєРѕР»РёС‡РµСЃС‚РІРѕ: ";
 			cin >> new_product_count;
-			new_product = Product(new_product_name, new_product_price, 0, 0, new_product_count); // создание нового товара 
-			provider->products_provider.emplace_back(new_product); // добавление товара в список товаров
+			new_product = Product(new_product_name, new_product_price, 0, 0, new_product_count); // СЃРѕР·РґР°РЅРёРµ РЅРѕРІРѕРіРѕ С‚РѕРІР°СЂР° 
+			provider->products_provider.emplace_back(new_product); // РґРѕР±Р°РІР»РµРЅРёРµ С‚РѕРІР°СЂР° РІ СЃРїРёСЃРѕРє С‚РѕРІР°СЂРѕРІ
 			break;
-		// УДАЛЕНИЕ ТОВАРА
+			// РЈР”РђР›Р•РќРР• РўРћР’РђР Рђ
 		case 11:
-			provider->info_products_provider(); // вывод имеющихся товаров
+			system("cls");
+			cout << endl;
+			provider->info_products_provider(); // РІС‹РІРѕРґ РёРјРµСЋС‰РёС…СЃСЏ С‚РѕРІР°СЂРѕРІ
 			int i;
-			cout << "Введите номер товара: ";
-			cin >> i;
-			provider->products_provider.erase(provider->products_provider.begin() + i); // удаление товара под номером i
+			do {
+				cout << "Р’РІРµРґРёС‚Рµ РЅРѕРјРµСЂ С‚РѕРІР°СЂР°: ";
+				cin >> i;
+			} while ((i < 0) || (i > provider->products_provider.size() - 1));
+			provider->products_provider.erase(provider->products_provider.begin() + i); // СѓРґР°Р»РµРЅРёРµ С‚РѕРІР°СЂР° РїРѕРґ РЅРѕРјРµСЂРѕРј i
 			break;
-		// ИЗМЕНИТЬ ЦЕНУ ТОВАРА
+			// РР—РњР•РќРРўР¬ Р¦Р•РќРЈ РўРћР’РђР Рђ
 		case 12:
-			provider->info_products_provider(); // вывод имеющихся товаров
-			cout << "Введите номер продукта: ";
-			cin >> i;
-			cout << "Введите цену: ";
+			system("cls");
+			cout << endl;
+			provider->info_products_provider(); // РІС‹РІРѕРґ РёРјРµСЋС‰РёС…СЃСЏ С‚РѕРІР°СЂРѕРІ
+			do {
+				cout << "Р’РІРµРґРёС‚Рµ РЅРѕРјРµСЂ С‚РѕРІР°СЂР°: ";
+				cin >> i;
+			} while ((i < 0) || (i > provider->products_provider.size() - 1));
+			cout << "Р’РІРµРґРёС‚Рµ С†РµРЅСѓ: ";
 			cin >> new_price;
-			name_i = provider->getProductProvider()[i].getProduct_Name(); // название товара под номером i
-			provider->getProductProvider()[i].setPrice(new_price); // изменение цены товара под номером i
-			// ищем данный товар по названию в заказе и в заказе меняем его цену
+			name_i = provider->getProductProvider()[i].getProduct_Name(); // РЅР°Р·РІР°РЅРёРµ С‚РѕРІР°СЂР° РїРѕРґ РЅРѕРјРµСЂРѕРј i
+			provider->getProductProvider()[i].setPrice(new_price); // РёР·РјРµРЅРµРЅРёРµ С†РµРЅС‹ С‚РѕРІР°СЂР° РїРѕРґ РЅРѕРјРµСЂРѕРј i
+			// РёС‰РµРј РґР°РЅРЅС‹Р№ С‚РѕРІР°СЂ РїРѕ РЅР°Р·РІР°РЅРёСЋ РІ Р·Р°РєР°Р·Рµ Рё РІ Р·Р°РєР°Р·Рµ РјРµРЅСЏРµРј РµРіРѕ С†РµРЅСѓ
 			for (j = 0; j < (*request).products.size(); j++)
 				if (request->products[j].getProduct_Name() == name_i)
 					request->products[j].setPrice(new_price);
 			break;
-		// ВЫХОД ИЗ МЕНЮ
+			// Р’Р«РҐРћР” РР— РњР•РќР®
 		case 0:
 			cExit = true;;
 			break;
@@ -331,53 +414,54 @@ void menu_provider(Provider* provider, Customer* customer, Request* request)
 	}
 }
 
-//НАЧАЛЬНОЕ МЕНЮ
+//РќРђР§РђР›Р¬РќРћР• РњР•РќР®
 int main()
 {
 	setlocale(0, "Rus");
 	int a;
-	string input_login; // введённый логин
-	string input_password; // введённый пароль
-	Provider PROVIDER; // создаём поставщика
-	Customer CUSTOMER; // создаём заказчика
-	Request REQUEST; // создаём заказ
+	string input_login; // РІРІРµРґС‘РЅРЅС‹Р№ Р»РѕРіРёРЅ
+	string input_password; // РІРІРµРґС‘РЅРЅС‹Р№ РїР°СЂРѕР»СЊ
+	Provider PROVIDER; // СЃРѕР·РґР°С‘Рј РїРѕСЃС‚Р°РІС‰РёРєР°
+	Customer CUSTOMER; // СЃРѕР·РґР°С‘Рј Р·Р°РєР°Р·С‡РёРєР°
+	Request REQUEST; // СЃРѕР·РґР°С‘Рј Р·Р°РєР°Р·
 	Time t;
 
 	while (true)
 	{
-		cout << "1. Войти как заказчик" << endl;
-		cout << "2. Войти как поставщик" << endl;
-		cout << "3. Выход" << endl << endl;
+		system("cls");
+		cout << "\n" << "1. Р’РѕР№С‚Рё РєР°Рє Р·Р°РєР°Р·С‡РёРє" << endl;
+		cout << "2. Р’РѕР№С‚Рё РєР°Рє РїРѕСЃС‚Р°РІС‰РёРє" << endl;
+		cout << "3. Р’С‹С…РѕРґ" << endl << endl;
 		do {
-			cout << "Введите номер функции: ";
+			cout << "Р’РІРµРґРёС‚Рµ РЅРѕРјРµСЂ С„СѓРЅРєС†РёРё: ";
 			cin >> a;
 		} while ((a < 1) || (a > 3));
 		switch (a)
 		{
-		// ВОЙТИ КАК ЗАКАЗЧИК
+			// Р’РћР™РўР РљРђРљ Р—РђРљРђР—Р§РРљ
 		case 1:
 			do {
-				cout << "Введите логин: ";
+				cout << "\n" << "Р’РІРµРґРёС‚Рµ Р»РѕРіРёРЅ: ";
 				cin >> input_login;
-				cout << "Введите пароль: ";
+				cout << "Р’РІРµРґРёС‚Рµ РїР°СЂРѕР»СЊ: ";
 				cin >> input_password;
-			} while (CUSTOMER.getLogin() != input_login || CUSTOMER.getPassword() != input_password); // проверка правильности введённых данных
-			// В МЕНЮ ЗАКАЗЧИКА
+			} while (CUSTOMER.getLogin() != input_login || CUSTOMER.getPassword() != input_password); // РїСЂРѕРІРµСЂРєР° РїСЂР°РІРёР»СЊРЅРѕСЃС‚Рё РІРІРµРґС‘РЅРЅС‹С… РґР°РЅРЅС‹С…
+			// Р’ РњР•РќР® Р—РђРљРђР—Р§РРљРђ
 			menu_customer(&CUSTOMER, &REQUEST, &PROVIDER);
 			break;
-		// ВОЙТИ КАК ПОСТАВЩИКА
+			// Р’РћР™РўР РљРђРљ РџРћРЎРўРђР’Р©РРљРђ
 		case 2:
 			do
 			{
-				cout << "Введите логин: ";
+				cout << "\n" << "Р’РІРµРґРёС‚Рµ Р»РѕРіРёРЅ: ";
 				cin >> input_login;
-				cout << "Введите пароль: ";
+				cout << "Р’РІРµРґРёС‚Рµ РїР°СЂРѕР»СЊ: ";
 				cin >> input_password;
-			} while (PROVIDER.getLogin() != input_login || PROVIDER.getPassword() != input_password); // проверка правильности введённых данных
-			// В МЕНЮ ПОСТАВЩИКА
+			} while (PROVIDER.getLogin() != input_login || PROVIDER.getPassword() != input_password); // РїСЂРѕРІРµСЂРєР° РїСЂР°РІРёР»СЊРЅРѕСЃС‚Рё РІРІРµРґС‘РЅРЅС‹С… РґР°РЅРЅС‹С…
+			// Р’ РњР•РќР® РџРћРЎРўРђР’Р©РРљРђ
 			menu_provider(&PROVIDER, &CUSTOMER, &REQUEST);
 			break;
-		// ВЫХОД
+			// Р’Р«РҐРћР”
 		case 3:
 			exit(0);
 			break;
