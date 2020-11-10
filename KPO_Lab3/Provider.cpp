@@ -6,41 +6,41 @@
 
 using namespace std;
 
-// РєРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ
+// конструктор
 Provider::Provider(string name, string telephone, string login, string password, string email, string numcard, vector<Product> products_provider, Request incoming_request, string message){
-	this->name = name; // РёРјСЏ
-	this->telephone = telephone; // С‚РµР»РµС„РѕРЅ
-	this->login = login; // Р»РѕРіРёРЅ
-	this->password = password; // РїР°СЂРѕР»СЊ
-	this->email = email; // Р°РґСЂРµСЃ СЌР». РїРѕС‡С‚С‹
-	this->numcard = numcard; // РЅРѕРјРµСЂ РєР°СЂС‚С‹
-	this->products_provider = products_provider; // СЃРїРёСЃРѕРє РїРѕСЃС‚Р°РІР»СЏРµРјС‹С… С‚РѕРІР°СЂРѕРІ
-	this->incoming_request = incoming_request; // РІС…РѕРґСЏС‰РёРµ Р·Р°РєР°Р·С‹
-	this->message = message; // РІС…РѕРґСЏС‰РёРµ СЃРѕРѕР±С‰РµРЅРёСЏ
+	this->name = name; // имя
+	this->telephone = telephone; // телефон
+	this->login = login; // логин
+	this->password = password; // пароль
+	this->email = email; // адрес эл. почты
+	this->numcard = numcard; // номер карты
+	this->products_provider = products_provider; // список поставляемых товаров
+	this->incoming_request = incoming_request; // входящие заказы
+	this->message = message; // входящие сообщения
 }
 
-//РєРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ РїРѕ СѓРјРѕР»С‡Р°РЅРёСЋ
+//конструктор по умолчанию
 Provider::Provider() 
 {
-	this->name = "РћРћРћ Р‘С‹СЃС‚СЂРѕ Рё РєСЂСѓРіР»РѕСЃСѓС‚РѕС‡РЅРѕ";
+	this->name = "ООО Быстро и круглосуточно";
 	this->telephone = "8(915)152-38-76";
 	this->login = "c"; // allday1
 	this->password = "d"; // 24.7.365
 	this->email = "f"; // iphonemskopt@gmail.com
 	this->numcard = "4000 1567 0000 0125";
-	this->products_provider = { Product("РҐР»РµР±", 31, 432, 518, 550),
-								Product("Р“СЂРµС‡РєР°", 52, 205, 224, 300),
-								Product("Р РёСЃ", 65, 192, 235, 250),
-								Product("РњР°РєР°СЂРѕРЅС‹", 54, 317, 302, 350),
-								Product("РњР°СЃР»Рѕ РїРѕРґСЃРѕР»РЅРµС‡РЅРѕРµ", 42, 123, 125, 150),
-								Product("РљРѕР»Р±Р°СЃР° РґРѕРєС‚РѕСЂСЃРєР°СЏ", 215, 279, 214, 300),
-								Product("РњС‹Р»Рѕ РґРµС‚СЃРєРѕРµ", 35, 156, 122, 200),
-								Product("РЎР°Р»С„РµС‚РєРё Р±СѓРјР°Р¶РЅС‹Рµ", 25, 194, 228, 250),
-								Product("РЎРѕРє", 60, 220, 206, 250),
-								Product("РЁРѕРєРѕР»Р°Рґ", 300, 135, 151, 200),
-								Product("РњРѕР»РѕРєРѕ", 70, 357, 324, 400) };
+	this->products_provider = { Product("Хлеб", 31, 432, 518, 550),
+								Product("Гречка", 52, 205, 224, 300),
+								Product("Рис", 65, 192, 235, 250),
+								Product("Макароны", 54, 317, 302, 350),
+								Product("Масло подсолнечное", 42, 123, 125, 150),
+								Product("Колбаса докторская", 215, 279, 214, 300),
+								Product("Мыло детское", 35, 156, 122, 200),
+								Product("Салфетки бумажные", 25, 194, 228, 250),
+								Product("Сок", 60, 220, 206, 250),
+								Product("Шоколад", 300, 135, 151, 200),
+								Product("Молоко", 70, 357, 324, 400) };
 	this->incoming_request = Request(0, "", {}, {0, 0, 0, 0});
-	this->message = "Р—РґРµСЃСЊ РїРѕРєР° РЅРµС‚ СЃРѕРѕР±С‰РµРЅРёР№";
+	this->message = "Здесь пока нет сообщений";
 }
 
 string Provider::getName()
@@ -124,15 +124,15 @@ void Provider::setMessage(string message)
 	this->message = message;
 }
 
-// РІС‹РІРѕРґ СЃРїРёСЃРєР° РїРѕСЃС‚Р°РІР»СЏРµРјС‹С… С‚РѕРІР°СЂРѕРІ
+// вывод списка поставляемых товаров
 void Provider::info_products_provider()
 {
-	cout << setw(3) << "в„–" << setw(30) 
-		<< "РќР°Р·РІР°РЅРёРµ С‚РѕРІР°СЂР°" << setw(10)
-		<< "Р¦РµРЅР°" << setw(30)
-		<< "РЎРїСЂРѕСЃ Р·Р° С‚РµРєСѓС‰РёР№ РјРµСЃСЏС†" << setw(30)
-		<< "РЎРїСЂРѕСЃ Р·Р° РїСЂРѕС€РµРґС€РёР№ РјРµСЃСЏС†" << setw(15)
-		<< "РљРѕР»РёС‡РµСЃС‚РІРѕ" << endl;
+	cout << setw(3) << "№" << setw(30) 
+		<< "Название товара" << setw(10)
+		<< "Цена" << setw(30)
+		<< "Спрос за текущий месяц" << setw(30)
+		<< "Спрос за прошедший месяц" << setw(15)
+		<< "Количество" << endl;
 	cout << "----------------------------------------------------------------------------------------------------------------------" << endl << endl;
 	for (int i = 0; i < getProductProvider().size(); i++)
 		cout << setw(3) << i << getProductProvider()[i] << endl;

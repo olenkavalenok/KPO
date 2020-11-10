@@ -6,17 +6,17 @@
 
 using namespace std;
 
-// РєРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ
+// конструктор
 Product::Product(string product_name, double price, int demand, int last_demand, int count)
 {
-	this->product_name = product_name; // РЅР°Р·РІР°РЅРёРµ С‚РѕРІР°СЂР°
-	this->price = price; // С†РµРЅР° С‚РѕРІР°СЂР°
-	this->demand = demand; // СЃРїСЂРѕСЃ РЅР° С‚РѕРІР°СЂ Р·Р° С‚РµРєСѓС‰РёР№ РјРµСЃСЏС†
-	this->last_demand = last_demand; // СЃРїСЂРѕСЃ РЅР° С‚РѕРІР°СЂ Р·Р° РїСЂРѕС€Р»С‹Р№ РјРµСЃСЏС†
-	this->count = count; // Рє-РІРѕ С‚РѕРІР°СЂР°
+	this->product_name = product_name; // название товара
+	this->price = price; // цена товара
+	this->demand = demand; // спрос на товар за текущий месяц
+	this->last_demand = last_demand; // спрос на товар за прошлый месяц
+	this->count = count; // к-во товара
 }
 
-//РєРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ РїРѕ СѓРјРѕР»С‡Р°РЅРёСЋ
+//конструктор по умолчанию
 Product::Product() 
 {
 	this->product_name = "";
@@ -71,7 +71,7 @@ void Product::setCount(int count)
 	this->count = count;
 }
 
-// РїРµСЂРµРіСЂСѓР·РєР° РѕРїРµСЂР°С‚РѕСЂР°, РІС‹РІРѕРґ РёРЅС„РѕСЂРјР°С†РёРё Рѕ С‚РѕРІР°СЂРµ
+// перегрузка оператора, вывод информации о товаре
 ostream& operator << (std::ostream& out, const Product& Product)
 {
 	return out << setw(30) << Product.product_name << setw(10)
@@ -80,3 +80,4 @@ ostream& operator << (std::ostream& out, const Product& Product)
 		<< Product.last_demand << setw(15)
 		<< Product.count << endl;
 }
+
