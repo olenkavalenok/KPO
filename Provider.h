@@ -9,23 +9,23 @@
 
 using namespace std;
 
-// ПОСТАВЩИК
+// РџРћРЎРўРђР’Р©РРљ
 class Provider
 {
 private:
-	string name; // имя
-	string telephone; // телефон
-	string login; // логин
-	string password; // пароль
-	string email; // адрес эл. почты
-	string numcard; // номер карты
-	Request incoming_request; // входящие заказы
-	string message; // входящие сообщения
+	string name; // РёРјСЏ
+	string telephone; // С‚РµР»РµС„РѕРЅ
+	string login; // Р»РѕРіРёРЅ
+	string password; // РїР°СЂРѕР»СЊ
+	string email; // Р°РґСЂРµСЃ СЌР». РїРѕС‡С‚С‹
+	string numcard; // РЅРѕРјРµСЂ РєР°СЂС‚С‹
+	Request incoming_request; // РІС…РѕРґСЏС‰РёРµ Р·Р°РєР°Р·С‹
+	string message; // РІС…РѕРґСЏС‰РёРµ СЃРѕРѕР±С‰РµРЅРёСЏ
 public:
-	vector<Product> products_provider; // список поставляемых товаров
+	vector<Product> products_provider; // СЃРїРёСЃРѕРє РїРѕСЃС‚Р°РІР»СЏРµРјС‹С… С‚РѕРІР°СЂРѕРІ
 
-	Provider(string name, string telephone, string login, string password, string email, string numcard, vector<Product> products_provider, Request incoming_request, string message); // конструктор
-	Provider(); // конструктор по умолчанию
+	Provider(string name, string telephone, string login, string password, string email, string numcard, vector<Product> products_provider, Request incoming_request, string message); // РєРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ
+	Provider(); // РєРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ РїРѕ СѓРјРѕР»С‡Р°РЅРёСЋ
 
 	string getName();
 	void setName(string name);
@@ -54,6 +54,6 @@ public:
 	string getMessage();
 	void setMessage(string message);
 
-	void info_products_provider(); // вывод списка поставляемых товаров
+	void info_products_provider(); // РІС‹РІРѕРґ СЃРїРёСЃРєР° РїРѕСЃС‚Р°РІР»СЏРµРјС‹С… С‚РѕРІР°СЂРѕРІ
 };
 
