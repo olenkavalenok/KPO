@@ -8,20 +8,20 @@
 
 using namespace std;
 
-// Р—РђРљРђР—Р§РРљ
+// ЗАКАЗЧИК
 class Customer
 {
 private:
-	string name; // РёРјСЏ
-	string telephone; // С‚РµР»РµС„РѕРЅ
-	string login; // Р»РѕРіРёРЅ
-	string password; // РїР°СЂРѕР»СЊ
-	string email; // Р°РґСЂРµСЃ СЌР». РїРѕС‡С‚С‹
-	string numcard; // РЅРѕРјРµСЂ РєР°СЂС‚С‹
-	string message; // РІС…РѕРґСЏС‰РёРµ СЃРѕРѕР±С‰РµРЅРёСЏ
+	string name; // имя
+	string telephone; // телефон
+	string login; // логин
+	string password; // пароль
+	string email; // адрес эл. почты
+	string numcard; // номер карты
+	string message; // входящие сообщения
 public:
-	Customer(string name, string telephone, string login, string password, string email, string numcard, string message); // РєРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ
-	Customer(); // РєРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ РїРѕ СѓРјРѕР»С‡Р°РЅРёСЋ
+	Customer(string name, string telephone, string login, string password, string email, string numcard, string message); // конструктор
+	Customer(); // конструктор по умолчанию
 
 	string getName();
 	void setName(string name);
